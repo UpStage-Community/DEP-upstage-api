@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20161017045338) do
     t.string   "email"
     t.string   "url"
     t.string   "short_description"
-    t.text     "long_description"
+    t.text     "description"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20161017045338) do
   create_table "productions", force: :cascade do |t|
     t.integer  "company_id"
     t.string   "title"
+    t.string   "short_description"
     t.text     "description"
     t.string   "price_range"
     t.string   "ticket_url"

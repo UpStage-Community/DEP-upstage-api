@@ -6,7 +6,7 @@ class CreateCompanies < ActiveRecord::Migration[5.0]
             t.string :email
             t.string :url
             t.string :short_description
-            t.text :long_description
+            t.text :description
             t.attachment :image
 
             t.timestamps
