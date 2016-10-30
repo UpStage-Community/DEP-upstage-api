@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   root to: "productions#index"
 
   resources :productions, only: [:index, :show]
-  resource :companies, only: [:index, :show]
+  resources :companies, only: [:index, :show]
 end
