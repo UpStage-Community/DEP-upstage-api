@@ -58,4 +58,58 @@ describe UsersController do
             end
         end
     end
+
+    describe "PUT/PATCH #update" do
+
+      context "when is successfully updated" do
+        before(:each) do
+          @user = FactoryGirl.create :user
+          patch :update, { id: @user.id,
+                           user: { email: "newmail@example.com" } }, format: :json
+        end
+
+        it "renders the json representation for the updated user" do
+          user_response = JSON.parse(response.body, symbolize_names: true)
+          expect(user_response[:email]).to eql "newmail@example.com"
+        end
+
+        it "responds with 200" do
+            expect(response.status).to eql 200
+        end
+      end
+
+      context "when is not created" do
+        before(:each) do
+          @user = FactoryGirl.create :user
+          patch :update, { id: @user.id,
+                           user: { email: "bademail.com" } }, format: :json
+        end
+
+        it "renders an errors json" do
+          user_response = JSON.parse(response.body, symbolize_names: true)
+          expect(user_response.keys).to include :errors
+        end
+
+        it "renders the json errors on whye the user could not be created" do
+          user_response = JSON.parse(response.body, symbolize_names: true)
+          expect(user_response[:errors][:email]).to include "is invalid"
+        end
+
+        it "responds with 422" do
+            expect(response.status).to eql 422
+        end
+      end
+    end
+
+    describe "DELETE #destroy" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        delete :destroy, { id: @user.id }, format: :json
+      end
+
+      it "responds with 204" do
+          expect(response.status).to eql 204
+      end
+
+    end
 end
