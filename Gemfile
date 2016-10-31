@@ -20,7 +20,7 @@ gem 'puma', '~> 3.0'
 gem 'rack-cors'
 
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'paperclip', :git=> 'https://github.com/thoughtbot/paperclip', :ref => '523bd46c768226893f23889079a7aa9c73b57d68'
+gem 'paperclip'
 gem "aws-sdk"
 
 group :development, :test do
@@ -35,6 +35,14 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+group :test do
+  gem "rspec-rails", "~> 2.14"
+  gem "factory_girl_rails"
+  gem 'ffaker'
+end
+
+gem 'devise'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
