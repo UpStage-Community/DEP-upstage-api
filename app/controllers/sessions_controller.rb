@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
     def create
-        user_password = params[:session][:password]
-        user_email = params[:session][:email]
+        user_password = session_params[:password]
+        user_email = session_params[:email]
         user = user_email.present? && User.find_by(email: user_email)
 
         if user and user.valid_password? user_password
@@ -19,5 +19,9 @@ class SessionsController < ApplicationController
         user.generate_authentication_token!
         user.save
         head 204
+    end
+
+    def session_params
+        params.require(:session).permit(:password, :email)
     end
 end

@@ -17,6 +17,13 @@ describe SessionsController do
             it "returns the user record corresponding to the given credentials" do
                 @user.reload
                 expect(json_response[:auth_token]).to eql @user.auth_token
+                expect(json_response[:id]).to eql @user.id
+                expect(json_response[:email]).to eql @user.email
+                expect(json_response[:first_name]).to eql @user.first_name
+                expect(json_response[:last_name]).to eql @user.last_name
+                expect(json_response[:image]).to eql @user.image.url
+                expect(json_response[:bio]).to eql @user.bio
+                expect(json_response[:url]).to eql @user.url
             end
 
             it { should respond_with 200 }
