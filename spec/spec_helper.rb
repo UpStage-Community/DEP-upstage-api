@@ -64,4 +64,9 @@ RSpec.configure do |config|
   #Including to test requests
   config.include Request::JsonHelpers, :type => :controller
   config.include Devise::TestHelpers, :type => :controller
+
+  # Added for Shoulda-Matchers
+  config.include(Shoulda::Matchers::ActiveModel, type: :model)
+  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+
 end
