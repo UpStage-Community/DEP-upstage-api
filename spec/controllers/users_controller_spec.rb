@@ -4,7 +4,7 @@ describe UsersController do
     describe "GET #show" do
         before(:each) do
             @user = FactoryGirl.create :user
-            get :show, id: @user.id
+            get :show, params: { id: @user.id }
         end
 
         it "returns the information about a reporter on a hash" do
@@ -20,7 +20,7 @@ describe UsersController do
         context "when is successfully created" do
             before(:each) do
                 @user_attributes = FactoryGirl.attributes_for :user
-                post :create, { user: @user_attributes }
+                post :create, params: { user: @user_attributes }
             end
 
             it "renders the json representation for the user just created" do
@@ -37,7 +37,7 @@ describe UsersController do
                     password: "testpass",
                     password_confirmation: "testpass"
                 }
-                post :create, { user: @invalid_user_attributes }
+                post :create, params: { user: @invalid_user_attributes }
             end
 
             it "renders an errors json" do
@@ -62,7 +62,7 @@ describe UsersController do
 
         context "when is successfully updated" do
             before(:each) do
-            patch :update, { id: @user.id,
+            patch :update, params: { id: @user.id,
                            user: { email: "newmail@example.com" } }
             end
 
@@ -76,7 +76,7 @@ describe UsersController do
 
         context "when is not updated" do
             before(:each) do
-                patch :update, { 
+                patch :update, params: { 
                     id: @user.id,
                     user: { email: "bademail.com" } 
                 }
@@ -100,7 +100,7 @@ describe UsersController do
         before(:each) do
             @user = FactoryGirl.create :user
             # api_authorization_header @user.auth_token 
-            delete :destroy, { id: @user.id }, format: :json
+            delete :destroy, params: { id: @user.id }, format: :json
         end
 
         it { should respond_with 204 }
