@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:8080', 'upstage-web.herokuapp.com'
+    origins ['localhost:8080', 'upstage-web.herokuapp.com', 'upstagecommunity.com', 'www.upstagecommunity.com']
 
     resource '*',
       headers: :any,
