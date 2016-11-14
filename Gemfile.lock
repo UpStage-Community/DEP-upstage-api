@@ -189,6 +189,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
   aws-sdk
+  bundler (~> 1.11, >= 1.11.2)
   byebug
   devise
   factory_girl_rails
@@ -204,6 +205,9 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+
+RUBY VERSION
+   ruby 2.3.1p112
 
 BUNDLED WITH
    1.13.5
