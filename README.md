@@ -1,24 +1,10 @@
-# README
+# Upstage Community API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To get started:
+1. Clone Repo
+2. Install dependencies `bundle install`
+3. Migrate database `rails db:migrate`
+4. (Optional) Seed data `rails db:seed`
+5. Run server `rails s`
+6. Open at localhost:3000
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
