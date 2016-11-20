@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
     def create
         user_password = session_params[:password]
-        user_email = session_params[:email]
+        user_email = session_params[:email].downcase
         user = user_email.present? && User.find_by(email: user_email)
 
         if user and user.valid_password? user_password

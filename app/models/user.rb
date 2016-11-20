@@ -9,11 +9,15 @@ class User < ApplicationRecord
     validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
     validates :auth_token, uniqueness: true
 
-    before_create :generate_authentication_token!
+    before_create :generate_authentication_token!, :sanitize_email
 
     def generate_authentication_token!
         begin
             self.auth_token = Devise.friendly_token
         end while self.class.exists?(auth_token: auth_token)
+    end
+
+    def sanitize_email
+        self.email = email.downcase
     end
 end
