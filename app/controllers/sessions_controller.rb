@@ -21,6 +21,11 @@ class SessionsController < ApplicationController
         head 204
     end
 
+    def show
+        user = User.find_by(auth_token: params[:id])
+        render json: user, status: 200
+    end
+
     def session_params
         params.require(:session).permit(:password, :email)
     end
