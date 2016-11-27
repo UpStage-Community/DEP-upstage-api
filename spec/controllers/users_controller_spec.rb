@@ -82,6 +82,7 @@ describe UsersController do
                 api_authorization_header @user.auth_token
             end
 
+
             context "when is successfully updated" do
                 before(:each) do
                 patch :update, params: { id: @user.id,
@@ -94,6 +95,27 @@ describe UsersController do
                 end
 
                 it { should respond_with 200 }
+            end
+            
+            context "when user updates someone else" do
+                before(:each) do
+                    @other_user = FactoryGirl.create :user
+                    patch :update, params: { id: @other_user.id,
+                                    user: { email: "newmail@example.com" } }
+                end
+
+                it "renders an errors json" do
+                    user_response = json_response
+                    expect(user_response).to have_key(:errors)
+                end
+
+                it "renders a forbidden error" do
+                    user_response = json_response
+                    expect(user_response[:errors]).to eql "You do not have permission to perform this action"
+                end
+
+                it { should respond_with 403 }
+
             end
 
             context "when is not updated" do
@@ -120,13 +142,61 @@ describe UsersController do
     end
 
     describe "DELETE #destroy" do
+
         before(:each) do
             @user = FactoryGirl.create :user
-            api_authorization_header @user.auth_token
-            delete :destroy, params: { id: @user.id }, format: :json
+        end
+        before(:each) do
         end
 
-        it { should respond_with 204 }
+        context "when user not authenticated" do
+            before(:each) do
+                delete :destroy, params: { id: @user.id }
+            end
+            
+            it "does not allow delete without authentication" do
+                expect(json_response[:errors]).to eql "Not authenticated"
+            end
+
+            it { should respond_with 401 }
+
+        end
+
+        context "when user is authenticated" do
+            before(:each) do
+                api_authorization_header @user.auth_token
+            end
+
+            context "when deleting another user" do
+                before(:each) do
+                    @other_user = FactoryGirl.create :user
+                    delete :destroy, params: { id: @other_user.id }
+                end
+                
+                it "renders an errors json" do
+                    user_response = json_response
+                    expect(user_response).to have_key(:errors)
+                end
+
+                it "renders a forbidden error" do
+                    user_response = json_response
+                    expect(user_response[:errors]).to eql "You do not have permission to perform this action"
+                end
+
+                it { should respond_with 403 }
+            end
+
+            context "when deleting self" do
+                before(:each) do
+                    delete :destroy, params: { id: @user.id }
+                end
+
+                it { should respond_with 204 }
+            end
+
+
+        end
+        
 
     end
 end
