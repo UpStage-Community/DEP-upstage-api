@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: "productions#index"
+    root to: "productions#index"
+    devise_for :users, only: []
 
-  resources :productions, only: [:index, :show]
-  resources :companies, only: [:index, :show]
-  resources :users, only: [:show, :create, :update, :destroy]
-  resources :sessions, only: [:create, :destroy, :show]
+    resources :productions, only: [:index, :show]
+    resources :companies, only: [:index, :show]
+    resources :sessions, only: [:create, :destroy, :show]
+
+    resources :users, only: [:create, :destroy, :show, :update]
+
 end
