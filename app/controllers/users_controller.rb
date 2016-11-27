@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authenticate_with_token!, only: [:show, :create]
+    before_action :authenticate_with_token!, only: [:destroy, :update]
     before_action :check_self, only: [:update, :destroy]
 
     def check_self

@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-    skip_before_action :authenticate_with_token!
 
     def create
         user_password = session_params[:password]
