@@ -9,6 +9,8 @@ class User < ApplicationRecord
     validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
     validates :auth_token, uniqueness: true
 
+    validates :first_name, :last_name, presence: true
+
     before_create :sanitize_email
     after_create :generate_authentication_token!
 
