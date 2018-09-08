@@ -10,67 +10,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161031053807) do
+ActiveRecord::Schema.define(version: 2016_10_31_053807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "companies", force: :cascade do |t|
-    t.string   "name"
-    t.string   "phone"
-    t.string   "email"
-    t.string   "url"
-    t.string   "short_description"
-    t.text     "description"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
+  create_table "companies", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "email"
+    t.string "url"
+    t.string "short_description"
+    t.text "description"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.bigint "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "productions", force: :cascade do |t|
-    t.integer  "company_id"
-    t.string   "title"
-    t.string   "short_description"
-    t.text     "description"
-    t.string   "price_range"
-    t.string   "ticket_url"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
+  create_table "productions", id: :serial, force: :cascade do |t|
+    t.integer "company_id"
+    t.string "title"
+    t.string "short_description"
+    t.text "description"
+    t.string "price_range"
+    t.string "ticket_url"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.bigint "image_file_size"
     t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.index ["company_id"], name: "index_productions_on_company_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_productions_on_company_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "url"
-    t.text     "bio"
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "url"
+    t.text "bio"
+    t.string "image_file_name"
+    t.string "image_content_type"
+    t.bigint "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "auth_token",             default: ""
-    t.index ["auth_token"], name: "index_users_on_auth_token", unique: true, using: :btree
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "auth_token", default: ""
+    t.index ["auth_token"], name: "index_users_on_auth_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end
